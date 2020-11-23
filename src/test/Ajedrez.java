@@ -23,11 +23,13 @@ public class Ajedrez {
             imprimirTablero();
             preguntarDatos();
             if(validarOrigen()== true && validarDestino()==true) {
-                if(validarRecorrido()== true){
+                if (validarRecorrido() == true) {
                     moverFicha();
+                    cambiarTurno();
+                }else{
+                    out.println("Movimiento invalido intentelo de nuevo");
                 }
             }
-            cambiarTurno();
         }
         imprimirTablero();
     }
@@ -102,7 +104,8 @@ public class Ajedrez {
     }
 
     private static boolean movimientoCaballo() {
-        if(fichaDestinoX == (fichaOrigenX+2) && fichaOrigenY == (fichaDestinoY-1) || fichaDestinoX == (fichaOrigenX+2) && fichaOrigenY == (fichaDestinoY+1) ||  )
+        if(fichaDestinoX == (fichaOrigenX+2) && fichaOrigenY == (fichaDestinoY-1) || fichaDestinoX == (fichaOrigenX+2) && fichaOrigenY == (fichaDestinoY+1) ||)
+        return true;
     }
 
     private static boolean movimientoAlfil() {
@@ -110,27 +113,37 @@ public class Ajedrez {
     }
 
     private static boolean movimientoTorre() {
-        if(movimientoValido() == false) {
-            if (fichaDestinoX == fichaOrigenX || fichaDestinoY == fichaOrigenY) {
-                if (fichaOrigenX == fichaDestinoX) {
-                    for (int i = fichaOrigenY + 1; i < fichaDestinoY - 1; i++) {
-                        if (piezas[fichaOrigenX][i] instanceof PiezaVacia) {
-                            return false;
-                        }
-                    }
-                    return true;
+        //para abajo
+        if (fichaOrigenX== fichaDestinoX && fichaOrigenY < fichaDestinoY){
+            for (int i = (fichaOrigenY+1); i < (fichaDestinoY-1); i++) {
+                if (!(piezas[fichaOrigenX][i] instanceof PiezaVacia)){
+                    return false;
                 }
-                if (fichaOrigenY == fichaDestinoY) {
-                    for (int i = fichaOrigenX + 1; i < fichaDestinoX; i++) {
-                        if (piezas[i][fichaOrigenY] instanceof PiezaVacia) {
-                            return false;
-                        }
-                    }
-                    return true;
-                }
-
             }
-            return true;
+        }
+        //para arriba
+        if (fichaOrigenX== fichaDestinoX && fichaOrigenY > fichaDestinoY){
+            for (int i = (fichaOrigenY-1); i < (fichaDestinoY+1); i--) {
+                if (!(piezas[fichaOrigenX][i] instanceof PiezaVacia)){
+                    return false;
+                }
+            }
+        }
+        //para derecha
+        if (fichaOrigenY== fichaDestinoY && fichaOrigenX < fichaDestinoX){
+            for (int i = (fichaOrigenX+1); i < (fichaDestinoX-1); i++) {
+                if (!(piezas[i][fichaOrigenY] instanceof PiezaVacia)){
+                    return false;
+                }
+            }
+        }
+        //para izquierda
+        if (fichaOrigenY== fichaDestinoY && fichaOrigenX > fichaDestinoX){
+            for (int i = (fichaOrigenX-1); i < (fichaDestinoX+1); i--) {
+                if (!(piezas[i][fichaOrigenY] instanceof PiezaVacia)){
+                    return false;
+                }
+            }
         }
         return true;
     }
@@ -147,12 +160,11 @@ public class Ajedrez {
         if (fichaDestinoY== (fichaOrigenY-1) && (piezas[fichaDestinoX][fichaDestinoY]instanceof PiezaVacia )){
             return true;
         }else
-        return false;
 
-        /*if (fichaDestinoY == (fichaOrigenY-1) && (piezas[fichaDestinoX][fichaDestinoY]instanceof Pieza && fichaDestinoX == (fichaOrigenX-1) || fichaDestinoX == (fichaOrigenX+1))){
+        if (fichaDestinoY == (fichaOrigenY-1) && (piezas[fichaDestinoX][fichaDestinoY]instanceof Pieza && fichaDestinoX == (fichaOrigenX-1) || fichaDestinoX == (fichaOrigenX+1))){
             return true;
         }
-        return false;*/
+        return false;
     }
 
     private static boolean movimientoPeonNegro() {
@@ -167,21 +179,11 @@ public class Ajedrez {
         if (fichaDestinoY== (fichaOrigenY+1) && (piezas[fichaDestinoX][fichaDestinoY]instanceof PiezaVacia )){
             return true;
         }
+
+        if ((fichaDestinoY == (fichaOrigenY+1)) && (fichaDestinoX == (fichaOrigenX-1) || fichaDestinoX == (fichaOrigenX+1)) && (piezas[fichaDestinoX][fichaDestinoY]instanceof Pieza)){
+                return true;
+        }
         return false;
-
-        /*if (fichaDestinoY == (fichaOrigenY+1) && (piezas[fichaDestinoX][fichaDestinoY]instanceof Pieza && fichaDestinoX == (fichaOrigenX-1) || fichaDestinoX == (fichaOrigenX+1))){
-            return true;
-        }
-        return false;*/
-
-    }
-
-    private static boolean movimientoValido(){
-
-        /*if(piezas[fichaOrigenX + 1][fichaOrigenY] instanceof Pieza || piezas[fichaOrigenX -1][fichaOrigenY] instanceof Pieza || piezas[fichaOrigenX][fichaOrigenY + 1]instanceof Pieza || piezas[fichaOrigenX][fichaOrigenY - 1] instanceof Pieza){
-            return false;
-        }
-        return true;*/
     }
 
     static void preguntarDatos(){
