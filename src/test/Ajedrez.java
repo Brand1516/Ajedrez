@@ -102,7 +102,7 @@ public class Ajedrez {
     }
 
     private static boolean movimientoCaballo() {
-        return true;
+        if(fichaDestinoX == (fichaOrigenX+2) && fichaOrigenY == (fichaDestinoY-1) || fichaDestinoX == (fichaOrigenX+2) && fichaOrigenY == (fichaDestinoY+1) ||  )
     }
 
     private static boolean movimientoAlfil() {
@@ -110,6 +110,28 @@ public class Ajedrez {
     }
 
     private static boolean movimientoTorre() {
+        if(movimientoValido() == false) {
+            if (fichaDestinoX == fichaOrigenX || fichaDestinoY == fichaOrigenY) {
+                if (fichaOrigenX == fichaDestinoX) {
+                    for (int i = fichaOrigenY + 1; i < fichaDestinoY - 1; i++) {
+                        if (piezas[fichaOrigenX][i] instanceof PiezaVacia) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                if (fichaOrigenY == fichaDestinoY) {
+                    for (int i = fichaOrigenX + 1; i < fichaDestinoX; i++) {
+                        if (piezas[i][fichaOrigenY] instanceof PiezaVacia) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+
+            }
+            return true;
+        }
         return true;
     }
 
@@ -124,8 +146,13 @@ public class Ajedrez {
         }
         if (fichaDestinoY== (fichaOrigenY-1) && (piezas[fichaDestinoX][fichaDestinoY]instanceof PiezaVacia )){
             return true;
-        }
+        }else
         return false;
+
+        /*if (fichaDestinoY == (fichaOrigenY-1) && (piezas[fichaDestinoX][fichaDestinoY]instanceof Pieza && fichaDestinoX == (fichaOrigenX-1) || fichaDestinoX == (fichaOrigenX+1))){
+            return true;
+        }
+        return false;*/
     }
 
     private static boolean movimientoPeonNegro() {
@@ -141,6 +168,20 @@ public class Ajedrez {
             return true;
         }
         return false;
+
+        /*if (fichaDestinoY == (fichaOrigenY+1) && (piezas[fichaDestinoX][fichaDestinoY]instanceof Pieza && fichaDestinoX == (fichaOrigenX-1) || fichaDestinoX == (fichaOrigenX+1))){
+            return true;
+        }
+        return false;*/
+
+    }
+
+    private static boolean movimientoValido(){
+
+        /*if(piezas[fichaOrigenX + 1][fichaOrigenY] instanceof Pieza || piezas[fichaOrigenX -1][fichaOrigenY] instanceof Pieza || piezas[fichaOrigenX][fichaOrigenY + 1]instanceof Pieza || piezas[fichaOrigenX][fichaOrigenY - 1] instanceof Pieza){
+            return false;
+        }
+        return true;*/
     }
 
     static void preguntarDatos(){
