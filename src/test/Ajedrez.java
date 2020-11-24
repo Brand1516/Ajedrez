@@ -20,7 +20,7 @@ public class Ajedrez {
     public static void main(String[] args) {
         inciarTablero();
         imprimirTurno();
-        while (estado == true) {
+        while (estado) {
             imprimirTablero();
             preguntarDatos();
             if (validarLimites()) {
@@ -140,7 +140,27 @@ public class Ajedrez {
     }
 
     private static boolean movimientoRey() {
-        return true;
+        if (
+                // abajo
+                (fichaOrigenX == fichaDestinoX) && (fichaOrigenY== fichaDestinoY+1)||
+                //Arriba
+                (fichaOrigenX == fichaDestinoX) && (fichaOrigenY== fichaDestinoY-1)||
+                //derecha
+                (fichaOrigenX == fichaDestinoX+1) && (fichaOrigenY== fichaDestinoY)||
+                //izquierda
+                (fichaOrigenX == fichaDestinoX-1) && (fichaOrigenY== fichaDestinoY)||
+                //derecha abajo
+                (fichaOrigenX == fichaDestinoX+1) && (fichaOrigenY== fichaDestinoY+1)||
+                //izquierda abajo
+                (fichaOrigenX == fichaDestinoX-1) && (fichaOrigenY== fichaDestinoY+1)||
+                //derecha arriba
+                (fichaOrigenX == fichaDestinoX+1) && (fichaOrigenY== fichaDestinoY-1)||
+                //izquiera arriba
+                (fichaOrigenX == fichaDestinoX-1) && (fichaOrigenY== fichaDestinoY-1)
+        ){
+            return true;
+        }
+        return false;
     }
 
     private static boolean movimientoCaballo() {
